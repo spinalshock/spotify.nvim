@@ -41,7 +41,7 @@ the plugin. Other plugin managers can be used as well.
           { 'folke/noice.nvim' }, -- optional
           { 'folke/which-key.nvim' }, -- optional
           { 'nvim-lualine/lualine.nvim' }, -- optional
-      }
+      },
     opts = { -- Default configuration options (optional for user overrides)
       keymaps = {
         -- Example: Default keymaps can be replaced by user-defined keymaps here.
