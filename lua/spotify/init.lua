@@ -3,25 +3,25 @@ local spotify_commands = require 'spotify.commands'
 
 -- Default key mappings
 local default_keymaps = {
-  { name = 'play_pause', mode = 'n', '<leader>pp', ':SpotifyPlayPause<CR>', desc = 'Play/Pause Spotify' },
-  { name = 'next', mode = 'n', '<leader>pn', ':<C-U>SpotifyNext<CR>', desc = 'Next Spotify Track' },
-  { name = 'previous', mode = 'n', '<leader>pb', ':<C-U>SpotifyPrev<CR>', desc = 'Previous Spotify Track' },
-  { name = 'volume_up', mode = 'n', '<leader>+', ':<C-U>SpotifyVolUp<CR>', desc = 'Increase Spotify Volume' },
-  { name = 'volume_down', mode = 'n', '<leader>-', ':<C-U>SpotifyVolDown<CR>', desc = 'Decrease Spotify Volume' },
+  { name = 'play_pause',     mode = 'n', '<leader>pp', ':SpotifyPlayPause<CR>',     desc = 'Play/Pause Spotify' },
+  { name = 'next',           mode = 'n', '<leader>pn', ':<C-U>SpotifyNext<CR>',     desc = 'Next Spotify Track' },
+  { name = 'previous',       mode = 'n', '<leader>pb', ':<C-U>SpotifyPrev<CR>',     desc = 'Previous Spotify Track' },
+  { name = 'volume_up',      mode = 'n', '<leader>+',  ':<C-U>SpotifyVolUp<CR>',    desc = 'Increase Spotify Volume' },
+  { name = 'volume_down',    mode = 'n', '<leader>-',  ':<C-U>SpotifyVolDown<CR>',  desc = 'Decrease Spotify Volume' },
   { name = 'shuffle_toggle', mode = 'n', '<leader>ps', ':SpotifyToggleShuffle<CR>', desc = 'Toggle Spotify Shuffle' },
-  { name = 'repeat_toggle', mode = 'n', '<leader>pr', ':SpotifyToggleRepeat<CR>', desc = 'Toggle Spotify Repeat' },
-  { name = 'sound_volume', mode = 'n', '<leader>pv', ':SpotifyVolume<CR>', desc = 'Show Spotify Volume' },
-  { name = 'info', mode = 'n', '<leader>pi', ':SpotifyInfo<CR>', desc = 'Show Spotify Info' },
-  { name = 'mute_toggle', mode = 'n', '<leader>pm', ':SpotifyMuteToggle<CR>', desc = 'Toggle Spotify Mute' },
+  { name = 'repeat_toggle',  mode = 'n', '<leader>pr', ':SpotifyToggleRepeat<CR>',  desc = 'Toggle Spotify Repeat' },
+  { name = 'sound_volume',   mode = 'n', '<leader>pv', ':SpotifyVolume<CR>',        desc = 'Show Spotify Volume' },
+  { name = 'info',           mode = 'n', '<leader>pi', ':SpotifyInfo<CR>',          desc = 'Show Spotify Info' },
+  { name = 'mute_toggle',    mode = 'n', '<leader>pm', ':SpotifyToggleMute<CR>',    desc = 'Toggle Spotify Mute' },
 }
 
 -- Utility function to apply key mappings
 local function apply_keymaps(keymaps)
   for _, keymap in ipairs(keymaps) do
     vim.api.nvim_set_keymap(
-      keymap.mode or 'n', -- Default mode is normal
-      keymap[1], -- Key sequence
-      keymap[2], -- Command
+      keymap.mode or 'n',                                                                                    -- Default mode is normal
+      keymap[1],                                                                                             -- Key sequence
+      keymap[2],                                                                                             -- Command
       vim.tbl_deep_extend('force', { noremap = true, silent = true, desc = keymap.desc }, keymap.opts or {}) -- Merge user-provided options
     )
   end
@@ -43,7 +43,7 @@ function M.setup(user_opts)
       for i, default_keymap in ipairs(opts.keymaps) do
         if default_keymap.name == user_keymap.name then
           table.remove(opts.keymaps, i) -- Remove the matching default keymap
-          break -- No need to continue looking for this keymap
+          break                         -- No need to continue looking for this keymap
         end
       end
     end
@@ -66,7 +66,7 @@ function M.setup(user_opts)
   vim.api.nvim_create_user_command('SpotifyVolDown', function()
     spotify_commands.volume_down(vim.v.count1)
   end, {})
-  vim.api.nvim_create_user_command('SpotifyMuteToggle', spotify_commands.mute_toggle, {})
+  vim.api.nvim_create_user_command('SpotifyToggleMute', spotify_commands.mute_toggle, {})
   vim.api.nvim_create_user_command('SpotifyToggleShuffle', spotify_commands.shuffle_toggle, {})
   vim.api.nvim_create_user_command('SpotifyToggleRepeat', spotify_commands.repeat_toggle, {})
   vim.api.nvim_create_user_command('SpotifyVolume', spotify_commands.sound_volume, {})

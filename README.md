@@ -1,7 +1,7 @@
 # 🎷 spotify.nvim
 A Simple plugin to control Spotify from within NeoVim on MacOS 
 
-![preview](./assets/preview.gif)
+![preview](./assets/preview.mov)
 
 ## ✨ Description
 
@@ -25,16 +25,16 @@ MacOS, NeoVim, Spotify
 
 ## 📦 Installation
 
-This example uses [lazy.nvim](https://github.com/folke/lazy.nvim) to install/load
-the plugin. Other plugin managers can be used as well.
-
 > [!important]
 > The keymaps you pass for overriding the defaults have to match the name property to be set-up correctly.
 > The below example shows how to properly override existing keymaps. Default keymaps are shown in [Configuration](#configuration)
 > Check the [code](https://github.com/spinalshock/spotify.nvim/blob/main/lua/spotify/init.lua) to see how the setup function handles overrides.
 
+This example uses [lazy.nvim](https://github.com/folke/lazy.nvim) to install/load
+the plugin. Other plugin managers can be used as well.
 
 ```lua
+  -- lazy
   {
     'spinalshock/spotify.nvim',
     dependencies = {
@@ -63,18 +63,17 @@ Spotify.nvim comes with the following defaults:
 ```lua
 {
   -- Default key mappings
-    local default_keymaps = {
-      { name = 'play_pause', mode = 'n', '<leader>pp', ':SpotifyPlayPause<CR>', desc = 'Play/Pause Spotify' },
-      { name = 'next', mode = 'n', '<leader>pn', ':<C-U>SpotifyNext<CR>', desc = 'Next Spotify Track' },
-      { name = 'previous', mode = 'n', '<leader>pb', ':<C-U>SpotifyPrev<CR>', desc = 'Previous Spotify Track' },
-      { name = 'volume_up', mode = 'n', '<leader>+', ':<C-U>SpotifyVolUp<CR>', desc = 'Increase Spotify Volume' },
-      { name = 'volume_down', mode = 'n', '<leader>-', ':<C-U>SpotifyVolDown<CR>', desc = 'Decrease Spotify Volume' },
-      { name = 'shuffle_toggle', mode = 'n', '<leader>ps', ':SpotifyToggleShuffle<CR>', desc = 'Toggle Spotify Shuffle' },
-      { name = 'repeat_toggle', mode = 'n', '<leader>pr', ':SpotifyToggleRepeat<CR>', desc = 'Toggle Spotify Repeat' },
-      { name = 'sound_volume', mode = 'n', '<leader>pv', ':SpotifyVolume<CR>', desc = 'Show Spotify Volume' },
-      { name = 'info', mode = 'n', '<leader>pi', ':SpotifyInfo<CR>', desc = 'Show Spotify Info' },
-      { name = 'mute_toggle', mode = 'n', '<leader>pm', ':SpotifyMuteToggle<CR>', desc = 'Toggle Spotify Mute' },
-    }
+   local default_keymaps = {
+  { name = 'play_pause',     mode = 'n', '<leader>pp', ':SpotifyPlayPause<CR>',     desc = 'Play/Pause Spotify' },
+  { name = 'next',           mode = 'n', '<leader>pn', ':<C-U>SpotifyNext<CR>',     desc = 'Next Spotify Track' },
+  { name = 'previous',       mode = 'n', '<leader>pb', ':<C-U>SpotifyPrev<CR>',     desc = 'Previous Spotify Track' },
+  { name = 'volume_up',      mode = 'n', '<leader>+',  ':<C-U>SpotifyVolUp<CR>',    desc = 'Increase Spotify Volume' },
+  { name = 'volume_down',    mode = 'n', '<leader>-',  ':<C-U>SpotifyVolDown<CR>',  desc = 'Decrease Spotify Volume' },
+  { name = 'shuffle_toggle', mode = 'n', '<leader>ps', ':SpotifyToggleShuffle<CR>', desc = 'Toggle Spotify Shuffle' },
+  { name = 'repeat_toggle',  mode = 'n', '<leader>pr', ':SpotifyToggleRepeat<CR>',  desc = 'Toggle Spotify Repeat' },
+  { name = 'sound_volume',   mode = 'n', '<leader>pv', ':SpotifyVolume<CR>',        desc = 'Show Spotify Volume' },
+  { name = 'info',           mode = 'n', '<leader>pi', ':SpotifyInfo<CR>',          desc = 'Show Spotify Info' },
+  { name = 'mute_toggle',    mode = 'n', '<leader>pm', ':SpotifyToggleMute<CR>',    desc = 'Toggle Spotify Mute' }, 
 }
 ```
 
@@ -103,37 +102,40 @@ require('lualine').setup {
 }
 ```
 
-![statusline preview](/assets/statusline_preview.png)
-
 ## 🌈 Usage
+
+> [!tip]
+> Count support refers to **vim.v.count1**
+> You can introduce count before the <leader> key to repeat <count> times.
+> Eg: `4<leader>-` reduces volume by 40%
 
 <details>
 <summary>Click to see different ways to use the plugin</summary>
 
 <!-- hl_start -->
 
-| **Keymap**        | **Command**                | **Description**                |
-|-------------------|----------------------------|--------------------------------|
-| `<leader>pp`      | `:SpotifyPlayPause<CR>`    | Play/Pause Spotify             |
-| `<leader>pn`      | `:SpotifyNext<CR>`         | Next Spotify Track             |
-| `<leader>pb`      | `:SpotifyPrev<CR>`         | Previous Spotify Track         |
-| `<leader>+`       | `:SpotifyVolUp<CR>`        | Increase Spotify Volume        |
-| `<leader>-`       | `:SpotifyVolDown<CR>`      | Decrease Spotify Volume        |
-| `<leader>ps`      | `:SpotifyToggleShuffle<CR>`| Toggle Spotify Shuffle         |
-| `<leader>pr`      | `:SpotifyToggleRepeat<CR>` | Toggle Spotify Repeat          |
-| `<leader>pv`      | `:SpotifyVolume<CR>`       | Show Spotify Volume            |
-| `<leader>pi`      | `:SpotifyInfo<CR>`         | Show Spotify Info              |
-| `<leader>pm`      | `:SpotifyMuteToggle<CR>`   | Mute/Unmute Spotify            |
+| **Keymap**        | **Command**                | **Description**                | **Count Support** |
+|-------------------|----------------------------|--------------------------------|-------------------|
+| `<leader>pp`      | `:SpotifyPlayPause<CR>`    | Play/Pause Spotify             | No                |
+| `<leader>pn`      | `:SpotifyNext<CR>`         | Next Spotify Track             | Yes               |
+| `<leader>pb`      | `:SpotifyPrev<CR>`         | Previous Spotify Track         | Yes               |
+| `<leader>+`       | `:SpotifyVolUp<CR>`        | Increase Spotify Volume        | Yes               |
+| `<leader>-`       | `:SpotifyVolDown<CR>`      | Decrease Spotify Volume        | Yes               |
+| `<leader>ps`      | `:SpotifyToggleShuffle<CR>`| Toggle Spotify Shuffle         | No                |
+| `<leader>pr`      | `:SpotifyToggleRepeat<CR>` | Toggle Spotify Repeat          | No                |
+| `<leader>pv`      | `:SpotifyVolume<CR>`       | Show Spotify Volume            | No                |
+| `<leader>pi`      | `:SpotifyInfo<CR>`         | Show Spotify Info              | No                |
+| `<leader>pm`      | `:SpotifyMuteToggle<CR>`   | Mute/Unmute Spotify            | No                |
 
 
 <!-- hl_end -->
 
-## license
+## 🪪 License
 
 spotify.nvim is licensed under the mit license. see the [license.md](./license.md)
 file for more information.
 
-## contributing
+## 📝 Contributing
 
 contributions are welcome! please feel free to submit a pull request or open an issue
 for any bugs or feature requests.
