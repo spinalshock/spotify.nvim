@@ -1,7 +1,7 @@
 # 🎷 spotify.nvim
 A Simple plugin to control Spotify from within NeoVim on MacOS 
 
-![preview](./assets/preview.mov)
+![preview](./assets/preview.gif)
 
 ## ✨ Description
 
